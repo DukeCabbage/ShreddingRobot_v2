@@ -25,7 +25,7 @@ public class MeinTextView extends TextView {
 
     public void setFont() {
         if (fontPath==null){
-            fontPath="fonts/RionaSansMedium.otf";
+            fontPath="fonts/NotoSans-Bold.ttf";
         }
         Typeface tf = Typeface.createFromAsset(getContext().getAssets(), fontPath);
         this.setTypeface(tf);

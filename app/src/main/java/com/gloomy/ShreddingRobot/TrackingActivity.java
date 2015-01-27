@@ -39,9 +39,8 @@ public class TrackingActivity extends BaseFragmentActivity {
     private static final int AUTOOFF_TIME_THRESHOLD = 1800*1000;
 
     private Context _context;
-    private DecimalFormat dff = new DecimalFormat("0.00");
-    private DecimalFormat ddff = new DecimalFormat("00.00");
-    private DecimalFormat ddf = new DecimalFormat("00.0");
+    private DecimalFormat sig3 = new DecimalFormat("@@@");
+    private DecimalFormat sig2 = new DecimalFormat("@@");
 
     boolean tracking;
     boolean freeFalling;
@@ -251,8 +250,8 @@ public class TrackingActivity extends BaseFragmentActivity {
 
         //Timer
         resetCountTime();
-        tv_airTimeTimer.setText(dff.format(0.0) + " s");
-        tv_maxAirTimeTimer.setText(dff.format(0.0) + " s");
+        tv_airTimeTimer.setText(sig2.format(0.0) + " s");
+        tv_maxAirTimeTimer.setText(sig2.format(0.0) + " s");
         destroyTimer();
         mTimer = new Timer();
         mTimerTask = new MyTimerTask();
@@ -302,10 +301,10 @@ public class TrackingActivity extends BaseFragmentActivity {
 //		Log.e(TAG, "reset time");
         if (countTime > maxAirTime) {
             maxAirTime = countTime;
-            tv_maxAirTimeTimer.setText(dff.format(maxAirTime) + " s");
+            tv_maxAirTimeTimer.setText(sig2.format(maxAirTime) + " s");
         }
         countTime = 0.00;
-//        tv_airTimeTimer.setText(dff.format(countTime) + " s");
+//        tv_airTimeTimer.setText(sig2.format(countTime) + " s");
     }
 
     class MyTimerTask extends TimerTask {
@@ -316,7 +315,7 @@ public class TrackingActivity extends BaseFragmentActivity {
                 public void run() {
                     if (freeFalling) {
                         countTime += ((double) SENSOR_UPDATE_TIME_IN_MILLISECONDS) / 1000.0;
-                        tv_airTimeTimer.setText(dff.format(countTime) + " s");
+                        tv_airTimeTimer.setText(sig2.format(countTime) + " s");
                     }
                     autoOff_countDown -= SENSOR_UPDATE_TIME_IN_MILLISECONDS;
                 }
@@ -347,8 +346,6 @@ public class TrackingActivity extends BaseFragmentActivity {
 //		Log.e(TAG, "" + newAltitude);
         if (newAltitude == 0.0) {
 //            Log.e(TAG, "no altitude reading");
-//            tv_altitude.setText("no Altitude");
-//            Toast.makeText(_context, "Location has no altitude info", Toast.LENGTH_SHORT).show();
         } else {
             curAltitude *= ALTITUDE_AVERAGING_QUEUE_SIZE;
             boolean stabilizedAlt = rawAltData.size() == ALTITUDE_AVERAGING_QUEUE_SIZE;
@@ -372,7 +369,7 @@ public class TrackingActivity extends BaseFragmentActivity {
                         sensorSwitchBtn.performClick();
                     }
                 }
-                tv_altitude.setText(dff.format(curAltitude) + " m");
+                tv_altitude.setText(sig3.format(curAltitude) + " m");
             }
         }
     }
@@ -396,13 +393,13 @@ public class TrackingActivity extends BaseFragmentActivity {
                             gauge.setValue(stepValue, (int) maxValue);
                             switch(veloUnit) {
                                 case 1:
-                                    tv.setText(ddf.format(0.1*stepValue)+"m/s");
+                                    tv.setText(sig3.format(0.1*stepValue)+"m/s");
                                     break;
                                 case 2:
-                                    tv.setText(ddf.format(0.2236*stepValue)+"mi/h");
+                                    tv.setText(sig3.format(0.2236*stepValue)+"mi/h");
                                     break;
                                 default:
-                                    tv.setText(ddf.format(0.36*stepValue)+"km/h");
+                                    tv.setText(sig3.format(0.36*stepValue)+"km/h");
                                     break;
                             }
                         }

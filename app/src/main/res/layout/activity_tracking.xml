@@ -63,17 +63,18 @@
         android:layout_marginTop="20dp"
         android:background="@android:color/transparent">
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/sensorReadingLayout1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
 
             <com.gloomy.ShreddingRobot.Widget.MeinTextView
                 android:id="@+id/tv_airTimeLabel"
-                android:layout_width="@dimen/airTimeLabel_width"
+                android:layout_weight="1"
+                android:layout_width="0dp"
                 android:layout_height="@dimen/sensorReading_height"
                 android:layout_marginStart="@dimen/airTimeLabel_marginStart"
-                android:layout_marginEnd="@dimen/airTimeLabel_marginEnd"
                 android:gravity="center_vertical"
                 android:text="@string/air_time_label"
                 android:textColor="@color/white"
@@ -85,27 +86,28 @@
                 android:id="@+id/tv_airTimeTimer"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/sensorReading_height"
-                android:layout_toEndOf="@id/tv_airTimeLabel"
+                android:layout_marginEnd="@dimen/airTime_marginEnd"
                 android:gravity="center_vertical"
                 android:textColor="@color/white"
                 android:textSize="@dimen/sensorReading_textSize"
                 android:shadowColor="@color/white"
                 android:shadowRadius="@integer/text_glow_radius" />
 
-        </RelativeLayout>
+        </LinearLayout>
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/sensorReadingLayout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:layout_below="@+id/sensorReadingLayout1">
 
             <com.gloomy.ShreddingRobot.Widget.MeinTextView
                 android:id="@+id/tv_maxAirTimeLabel"
-                android:layout_width="@dimen/airTimeLabel_width"
+                android:layout_weight="1"
+                android:layout_width="0dp"
                 android:layout_height="@dimen/sensorReading_height"
                 android:layout_marginStart="@dimen/airTimeLabel_marginStart"
-                android:layout_marginEnd="@dimen/airTimeLabel_marginEnd"
                 android:gravity="center_vertical"
                 android:text="@string/max_air_time_label"
                 android:textColor="@color/white"
@@ -117,14 +119,14 @@
                 android:id="@+id/tv_maxAirTimeTimer"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/sensorReading_height"
-                android:layout_toEndOf="@id/tv_maxAirTimeLabel"
+                android:layout_marginEnd="@dimen/airTime_marginEnd"
                 android:gravity="center_vertical"
                 android:textColor="@color/white"
                 android:textSize="@dimen/sensorReading_textSize"
                 android:shadowColor="@color/white"
                 android:shadowRadius="@integer/text_glow_radius" />
 
-        </RelativeLayout>
+        </LinearLayout>
 
         <com.gloomy.ShreddingRobot.Widget.MeinTextView
             android:id="@+id/tv_altitude"

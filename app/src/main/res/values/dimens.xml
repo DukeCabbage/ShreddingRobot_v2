@@ -25,8 +25,7 @@
 
     <dimen name="airTimeIconSize">45dp</dimen>
     <dimen name="airTimeLabel_marginStart">50dp</dimen>
-    <dimen name="airTimeLabel_marginEnd">15dp</dimen>
-    <dimen name="airTimeLabel_width">160dp</dimen>
+    <dimen name="airTime_marginEnd">50dp</dimen>
     <dimen name="stropBtnHeight">140dp</dimen>
     <dimen name="stropBtnWidth">140dp</dimen>
 

@@ -58,11 +58,10 @@ public class CustomArrayAdapter extends ArrayAdapter<DBTrack>{
     HashMap<Integer, Boolean> mIniMap = new HashMap<Integer, Boolean>();
 
     private int entryAnimQueue = 0;
-    private int veloUnit;
 
     SimpleDateFormat dateF = new SimpleDateFormat("EEE, MMM d, yyyy", Locale.US);
-    DecimalFormat dff = new DecimalFormat("0.00");
-    DecimalFormat ddf = new DecimalFormat("00.0");
+    DecimalFormat sig3 = new DecimalFormat("@@@");
+    DecimalFormat sig2 = new DecimalFormat("@@");
 
     public CustomArrayAdapter(Context context, List<DBTrack> objects, SharedPreferences pref) {
         super(context, R.layout.history_item_layout, objects);
@@ -93,7 +92,6 @@ public class CustomArrayAdapter extends ArrayAdapter<DBTrack>{
             convertView = inflater.inflate(R.layout.history_item_layout, parent, false);
             viewHolder = new ViewHolderItem();
 
-            viewHolder.histoMainLayout = (LinearLayout) convertView.findViewById(R.id.histo_main_layout);
             viewHolder.maxAirTime = (MeinTextView) convertView.findViewById(R.id.trackMaxAirTime);
             viewHolder.maxSpeed = (MeinTextView) convertView.findViewById(R.id.trackMaxSpeed);
             viewHolder.maxSpeedUnit = (MeinTextView) convertView.findViewById(R.id.trackMaxSpeedUnit);
@@ -130,7 +128,7 @@ public class CustomArrayAdapter extends ArrayAdapter<DBTrack>{
             }
 
             //Entry animation when new views appear from bottom
-            if (mIniMap.get(position) == false) {
+            if (!mIniMap.get(position)) {
                 Animation entryAnim = AnimationUtils.loadAnimation(_context, R.anim.histo_item_enter_bottom);
                 entryAnim.setStartOffset(100l*entryAnimQueue+100l);
                 entryAnim.setAnimationListener(new Animation.AnimationListener() {
@@ -153,21 +151,28 @@ public class CustomArrayAdapter extends ArrayAdapter<DBTrack>{
             }
         }
 
-        viewHolder.maxAirTime.setText(dff.format(maxAirTime));
-        veloUnit = _pref.getInt("VELOCITY_UNIT", 0);
+        viewHolder.maxAirTime.setText(sig2.format(maxAirTime));
+        int veloUnit = _pref.getInt("VELOCITY_UNIT", 0);
+        double displayMaxSpeed = maxSpeed;
+
         switch (veloUnit) {
             case 0:
-                viewHolder.maxSpeed.setText(ddf.format(maxSpeed * 3.6));
+                displayMaxSpeed *= 3.6;
                 viewHolder.maxSpeedUnit.setText("km/h");
                 break;
-            case 1:
-                viewHolder.maxSpeed.setText(ddf.format(maxSpeed));
-                viewHolder.maxSpeedUnit.setText("m/s");
-                break;
             case 2:
-                viewHolder.maxSpeed.setText(ddf.format(maxSpeed * 2.236));
+                displayMaxSpeed *= 2.2366;
                 viewHolder.maxSpeedUnit.setText("mi/h");
                 break;
+            default:
+                viewHolder.maxSpeedUnit.setText("m/s");
+                break;
+        }
+
+        if (displayMaxSpeed > 10.0) {
+            viewHolder.maxSpeed.setText(sig3.format(displayMaxSpeed));
+        } else {
+            viewHolder.maxSpeed.setText(sig2.format(displayMaxSpeed));
         }
 
         viewHolder.trackDate.setText(dateF.format(mDate));
@@ -234,7 +239,6 @@ public class CustomArrayAdapter extends ArrayAdapter<DBTrack>{
     }
 
     public static class ViewHolderItem {
-        private LinearLayout histoMainLayout;
         private MeinTextView maxAirTime;
         private MeinTextView maxSpeed;
         private MeinTextView maxSpeedUnit;
@@ -246,7 +250,6 @@ public class CustomArrayAdapter extends ArrayAdapter<DBTrack>{
         private RelativeLayout expanding_layout;
         private TextView shareBtn;
         private TextView deleteBtn;
-
     }
 
     public void resetEntryAnim(){

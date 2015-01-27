@@ -101,7 +101,7 @@
         <com.gloomy.ShreddingRobot.Widget.MeinTextView
             android:id="@+id/trackLocation"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:layout_alignParentStart="true"
             android:layout_marginStart="10dp"
             android:textColor="@android:color/white"
@@ -110,7 +110,7 @@
         <com.gloomy.ShreddingRobot.Widget.MeinTextView
             android:id="@+id/arrow_up_down"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:layout_centerInParent="true"
             android:textColor="@android:color/white"
             android:textSize="@dimen/angle_down_size"
@@ -119,12 +119,20 @@
         <com.gloomy.ShreddingRobot.Widget.MeinTextView
             android:id="@+id/trackDate"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="10dp"
             android:textColor="@android:color/white"
             android:textSize="@dimen/history_date_textSize" />
     </RelativeLayout>
+
+    <View
+        android:id="@+id/horizontal_splitLine"
+        android:layout_width="fill_parent"
+        android:layout_height= "1dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:background="@color/history_list_divider" />
 
     <RelativeLayout
         android:id="@+id/expanding_layout"
@@ -158,5 +166,4 @@
                 meinTV:fontPath="fonts/fontawesome.ttf"/>
 
     </RelativeLayout>
-
 </LinearLayout>
