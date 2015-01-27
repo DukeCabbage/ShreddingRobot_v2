@@ -62,13 +62,6 @@ public class MainActivity extends BaseActivity {
         });
     }
 
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//        Log.i(TAG, "onStart");
-//    }
-
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -128,11 +121,11 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onAnimationEnd(Animation animation) {
                 if (index == 0) {
-//                    Intent intent = new Intent(_context, TrackingActivity.class);
-//                    startActivityWithNoExitAnim(intent);
+                    Intent intent = new Intent(_context, TrackingActivity.class);
+                    startActivityWithNoExitAnim(intent);
                 } else if (index == 1) {
-//                    Intent intent = new Intent(_context, HistoryActivity.class);
-//                    startActivityWithNoExitAnim(intent);
+                    Intent intent = new Intent(_context, HistoryActivity.class);
+                    startActivityWithNoExitAnim(intent);
                 } else {
                     Intent intent = new Intent(_context, SettingActivity.class);
                     startActivityWithNoExitAnim(intent);

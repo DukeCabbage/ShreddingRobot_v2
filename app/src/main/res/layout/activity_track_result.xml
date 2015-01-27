@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:background="@color/transparent" >
 
-            <com.example.ShreddingRobot.widget.CustomGauge
+            <com.gloomy.ShreddingRobot.Widget.CustomGauge
                 android:id="@+id/airTimeGauge"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -45,7 +45,7 @@
                 gauge:sweepAngle="360"
                 gauge:endValue="100" />
 
-            <com.example.ShreddingRobot.widget.MeinTextView
+            <com.gloomy.ShreddingRobot.Widget.MeinTextView
                 android:id="@+id/airTimeTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -53,7 +53,6 @@
                 android:gravity="center"
                 android:background="@color/transparent"
                 android:textSize="26sp"
-                meinTV:fontPath="fonts/Exo-SemiBold.otf"
                 android:visibility="gone"
                 android:shadowColor = "@color/white"
                 android:shadowRadius = "@integer/text_glow_radius" />
@@ -67,7 +66,7 @@
             android:layout_width="match_parent"
             android:background="@color/transparent" >
 
-            <com.example.ShreddingRobot.widget.CustomGauge
+            <com.gloomy.ShreddingRobot.Widget.CustomGauge
                 android:id="@+id/maxSpeedGauge"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -91,7 +90,7 @@
                 gauge:sweepAngle="270"
                 gauge:endValue="600" />
 
-            <com.example.ShreddingRobot.widget.MeinTextView
+            <com.gloomy.ShreddingRobot.Widget.MeinTextView
                 android:id="@+id/maxSpeedTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -115,7 +114,7 @@
         android:gravity="bottom"
         android:orientation="horizontal">
 
-        <com.example.ShreddingRobot.widget.MeinTextView
+        <com.gloomy.ShreddingRobot.Widget.MeinTextView
             android:id="@+id/save_btn"
             android:layout_weight="1"
             android:layout_width="0dp"
@@ -127,7 +126,7 @@
             android:shadowColor = "@color/white"
             android:shadowRadius = "@integer/text_glow_radius" />
 
-        <com.example.ShreddingRobot.widget.MeinTextView
+        <com.gloomy.ShreddingRobot.Widget.MeinTextView
             android:id="@+id/delete_btn"
             android:layout_weight="1"
             android:layout_width="0dp"

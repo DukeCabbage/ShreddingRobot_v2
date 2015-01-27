@@ -5,6 +5,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -163,12 +164,12 @@ public class TrackingActivity extends BaseFragmentActivity {
             //			int i;
             @Override
             public void onClick(View v) {
-//                stopTracking();
-//                Intent i = new Intent(_context, TrackResultActivity.class);
-//                i.putExtra("TRACK_OBJECT" , curTrack);
-//                startActivity(i);
-//                finish();
-//                overridePendingTransition(0, 0);
+                stopTracking();
+                Intent i = new Intent(_context, TrackResultActivity.class);
+                i.putExtra("TRACK_OBJECT" , curTrack);
+                startActivity(i);
+                finish();
+                overridePendingTransition(0, 0);
             }
         });
     }

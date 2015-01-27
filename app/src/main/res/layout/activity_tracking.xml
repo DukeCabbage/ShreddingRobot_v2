@@ -16,7 +16,7 @@
         android:layout_height="@dimen/gauge_height"
         android:background="@color/transparent">
 
-        <com.example.ShreddingRobot.widget.CustomGauge
+        <com.gloomy.ShreddingRobot.Widget.CustomGauge
             android:id="@+id/speedGauge"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -40,7 +40,7 @@
             gauge:sweepAngle="270"
             gauge:endValue="600" />
 
-        <com.example.ShreddingRobot.widget.MeinTextView
+        <com.gloomy.ShreddingRobot.Widget.MeinTextView
             android:id="@+id/speedTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -68,7 +68,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.example.ShreddingRobot.widget.MeinTextView
+            <com.gloomy.ShreddingRobot.Widget.MeinTextView
                 android:id="@+id/tv_airTimeLabel"
                 android:layout_width="@dimen/airTimeLabel_width"
                 android:layout_height="@dimen/sensorReading_height"
@@ -81,7 +81,7 @@
                 android:shadowColor="@color/white"
                 android:shadowRadius="@integer/text_glow_radius" />
 
-            <com.example.ShreddingRobot.widget.MeinTextView
+            <com.gloomy.ShreddingRobot.Widget.MeinTextView
                 android:id="@+id/tv_airTimeTimer"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/sensorReading_height"
@@ -100,7 +100,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/sensorReadingLayout1">
 
-            <com.example.ShreddingRobot.widget.MeinTextView
+            <com.gloomy.ShreddingRobot.Widget.MeinTextView
                 android:id="@+id/tv_maxAirTimeLabel"
                 android:layout_width="@dimen/airTimeLabel_width"
                 android:layout_height="@dimen/sensorReading_height"
@@ -113,7 +113,7 @@
                 android:shadowColor="@color/white"
                 android:shadowRadius="@integer/text_glow_radius" />
 
-            <com.example.ShreddingRobot.widget.MeinTextView
+            <com.gloomy.ShreddingRobot.Widget.MeinTextView
                 android:id="@+id/tv_maxAirTimeTimer"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/sensorReading_height"
@@ -126,7 +126,7 @@
 
         </RelativeLayout>
 
-        <com.example.ShreddingRobot.widget.MeinTextView
+        <com.gloomy.ShreddingRobot.Widget.MeinTextView
             android:id="@+id/tv_altitude"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/sensorReading_height"
