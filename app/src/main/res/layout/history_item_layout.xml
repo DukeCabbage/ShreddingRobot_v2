@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:meinTV="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/history_background"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/histo_main_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/histo_main_height1"
+        android:background="@color/transparent"
+        android:orientation="horizontal" >
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:paddingTop="@dimen/normal_padding"
+            android:paddingLeft="@dimen/normal_padding"
+            android:paddingRight="@dimen/normal_padding" >
+
+            <com.example.ShreddingRobot.widget.MeinTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:text="@string/top_speed"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/histo_main_label_textSize" />
+
+            <com.example.ShreddingRobot.widget.MeinTextView
+                android:id="@+id/trackMaxSpeed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:textColor="@android:color/white"
+                android:textSize="60dp"
+                meinTV:fontPath="fonts/RionaSansExtraLight.otf"/>
+
+            <com.example.ShreddingRobot.widget.MeinTextView
+                android:id="@+id/trackMaxSpeedUnit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/trackMaxSpeed"
+                android:layout_marginStart="@dimen/small_padding"
+                android:layout_toEndOf="@+id/trackMaxSpeed"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/histo_main_label_textSize" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:paddingTop="@dimen/normal_padding"
+            android:paddingLeft="@dimen/normal_padding"
+            android:paddingRight="@dimen/normal_padding" >
+
+            <com.example.ShreddingRobot.widget.MeinTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:text="@string/max_air_time"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/histo_main_label_textSize" />
+
+            <com.example.ShreddingRobot.widget.MeinTextView
+                android:id="@+id/trackMaxAirTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:textColor="@android:color/white"
+                android:textSize="60dp"
+                meinTV:fontPath="fonts/RionaSansExtraLight.otf"/>
+
+            <com.example.ShreddingRobot.widget.MeinTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/trackMaxAirTime"
+                android:layout_marginStart="@dimen/small_padding"
+                android:layout_toEndOf="@+id/trackMaxAirTime"
+                android:text="sec"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/histo_main_label_textSize" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/histo_extra_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/histo_main_height2"
+        android:gravity="center_vertical"
+        android:padding="@dimen/normal_padding" 
+        android:background="@color/transparent">
+
+        <com.example.ShreddingRobot.widget.MeinTextView
+            android:id="@+id/trackLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="10dp"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/history_loco_textSize" />
+
+        <com.example.ShreddingRobot.widget.MeinTextView
+            android:id="@+id/arrow_up_down"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/angle_down_size"
+            meinTV:fontPath="fonts/fontawesome.ttf"/>
+
+        <com.example.ShreddingRobot.widget.MeinTextView
+            android:id="@+id/trackDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/history_date_textSize" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/expanding_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        android:visibility="gone" >
+
+            <com.example.ShreddingRobot.widget.MeinTextView
+                android:id="@+id/share_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/share_btn_height"
+                android:gravity="center"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="20dp"
+                android:textColor="@android:color/white"
+                android:background="@color/transparent"
+                android:textSize="@dimen/share_icon_font_size"
+                meinTV:fontPath="fonts/fontawesome.ttf"/>
+
+            <com.example.ShreddingRobot.widget.MeinTextView
+                android:id="@+id/delete_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/share_btn_height"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="20dp"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:background="@color/transparent"
+                android:textSize="@dimen/share_icon_font_size"
+                meinTV:fontPath="fonts/fontawesome.ttf"/>
+
+        <!--
+        <LinearLayout
+            android:id="@+id/first_row"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/share_btn_height"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/wechat"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".25"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:clickable="true"
+                android:background="@drawable/wechat_selector"
+                android:textSize="@dimen/share_icon_font_size" />
+            
+            <TextView
+                android:id="@+id/facebook"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".25"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:clickable="true"
+                android:background="@drawable/facebook_selector"
+                android:textSize="@dimen/share_icon_font_size" />
+            
+            <TextView
+                android:id="@+id/google_plus"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".25"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:clickable="true"
+                android:background="@drawable/google_plus_selector"
+                android:textSize="@dimen/share_icon_font_size" />
+            
+            <TextView
+                android:id="@+id/twitter"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".25"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:clickable="true"
+                android:background="@drawable/twitter_selector"
+                android:textSize="@dimen/share_icon_font_size" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/share_btn_height"
+            android:layout_below="@+id/first_row"
+            android:orientation="horizontal" >
+        </LinearLayout>-->
+
+        
+    </RelativeLayout>
+
+</LinearLayout>

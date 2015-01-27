@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CustomGauge">
+        <attr name="useLapping" format="boolean" />
+        <attr name="useShader" format="boolean" />
+        <attr name="dualValue" format="boolean" />
+        <attr name="pointSize" format="integer" />
+        
+        <attr name="trackWidth" format="dimension" />
+        <attr name="trackColor" format="color" />
+        <attr name="strokeCap" format="string" />
+        <attr name="strokeWidth" format="dimension" />
+        
+        <attr name="strokeColor1" format="color" />
+        <attr name="strokeColor2" format="color" />
+        <!-- <attr name="colorPalettesId" format="integer" /> -->
+        
+        <attr name="startAngle" format="integer" />
+        <attr name="sweepAngle" format="integer" />
+        <attr name="startValue" format="integer" />
+        <attr name="endValue" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="MeinTextView">
+        <attr name="fontPath" format="string" />
+    </declare-styleable>
+</resources>

@@ -1,0 +1,174 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.ShreddingRobot.SettingActivity" >
+
+    <LinearLayout
+        android:id="@+id/profilePanel"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/profile_panel_height"
+        android:orientation="horizontal"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp">
+
+        <ImageView
+            android:id="@+id/profilePhoto"
+            android:layout_width="@dimen/profile_photo_size"
+            android:layout_height="@dimen/profile_photo_size"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:src="@drawable/profile_placeholder" />
+
+        <TextView
+            android:id="@+id/profileName"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/settingPanel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/veloUnits"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp">
+
+            <TextView
+                android:id="@+id/setToKmH"
+                android:text="@string/veloUnit0"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:gravity="center"
+                android:background="@color/veloUnit0"
+                android:textSize="@dimen/setting_textSize_large"
+                android:visibility="visible"/>
+
+            <TextView
+                android:id="@+id/setToMS"
+                android:text="@string/veloUnit1"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:gravity="center"
+                android:background="@color/veloUnit1"
+                android:textSize="@dimen/setting_textSize_large"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/setToMpH"
+                android:text="@string/veloUnit2"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:gravity="center"
+                android:background="@color/veloUnit2"
+                android:textSize="@dimen/setting_textSize_large"
+                android:visibility="gone"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/veloUnits"
+            android:orientation="horizontal"
+            android:baselineAligned="false">
+
+            <RelativeLayout
+                android:id="@+id/autoofftime"
+                android:layout_width="wrap_content"
+                android:layout_height="200dp"
+                android:layout_weight="1"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp">
+
+                <TextView
+                    android:id="@+id/timeOp0"
+                    android:text="Auto ShutDown Time:Off"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="center"
+                    android:background="@color/timeOff0"
+                    android:textSize="@dimen/setting_textSize_small"
+                    android:visibility="visible"/>
+
+                <TextView
+                    android:id="@+id/timeOp1"
+                    android:text="Auto ShutDown:30min"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="center"
+                    android:background="@color/timeOff1"
+                    android:textSize="@dimen/setting_textSize_small"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/timeOp2"
+                    android:text="Auto ShutDown:60min"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="center"
+                    android:background="@color/timeOff2"
+                    android:textSize="@dimen/setting_textSize_small"
+                    android:visibility="gone"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/autooffalti"
+                android:layout_width="wrap_content"
+                android:layout_height="200dp"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_alignParentRight="true" >
+
+                <TextView
+                    android:id="@+id/altiOp0"
+                    android:text="Auto ShutDown When Going Up Hill:off"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="center"
+                    android:background="@color/altiOff0"
+                    android:textSize="@dimen/setting_textSize_small"
+                    android:visibility="visible"/>
+
+                <TextView
+                    android:id="@+id/altiOp1"
+                    android:text="Auto ShutDown When Going Up Hill:200m"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="center"
+                    android:background="@color/altiOff1"
+                    android:textSize="@dimen/setting_textSize_small"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/altiOp2"
+                    android:text="Auto ShutDown When Going Up Hill:400m"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="center"
+                    android:background="@color/altiOff2"
+                    android:textSize="@dimen/setting_textSize_small"
+                    android:visibility="gone"/>
+
+            </RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

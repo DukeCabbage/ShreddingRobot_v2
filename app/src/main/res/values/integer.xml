@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="activity_enter_anim">300</integer>
+    <integer name="activity_exit_anim">300</integer>
+
+    <integer name="card_flip_time_full">300</integer>
+    <integer name="card_flip_time_half">150</integer>
+
+    <integer name="text_glow_radius">10</integer>
+</resources>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Shred</string>
+
+    <!-- Main Menu -->
+    <string name="shredding">Shredding</string>
+    <string name="history">History</string>
+    <string name="setting">Setting</string>
+    <string name="Timer">Timer</string>
+    <string name="title_activity_track_result">TrackResultActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_setting">SettingActivity</string>
+    <string name="top_speed">Top Speed</string>
+    <string name="max_air_time">Max Air Time</string>
+
+    <!-- Tracking Activity -->
+    <string name="quit_tracking_title">Quit Tracking</string>
+    <string name="quit_tracking_message">Do you wanna quit tracking and go back to main menu</string>
+    <string name="air_time_label">Air Time:</string>
+    <string name="max_air_time_label">Max Air Time:</string>
+    <string name="stop_btn_text">Stop</string>
+
+    <!-- Tracking Result Activity -->
+
+
+    <!-- History Activity -->
+    <string name="delete_track_title">Delete Track</string>
+    <string name="delete_track_message">Are you sure to delelte this track record</string>
+
+    <!-- Setting Activity -->
+    <string name="veloUnit0">km/h</string>
+    <string name="veloUnit1">m/s</string>
+    <string name="veloUnit2">mi/h</string>
+    <string name="timeOff0">Auto ShutDown Time: Off</string>
+    <string name="timeOff1">Auto ShutDown Time: 30min</string>
+    <string name="timeOff2">Auto ShutDown Time: 60min</string>
+    <string name="altiOff0">Auto ShutDown Riding Lift: Off</string>
+    <string name="altiOff1">Auto ShutDown Riding Lift: 300m</string>
+    <string name="altiOff2">Auto ShutDown Riding Lift: 600m</string>
+    <string name="title_activity_tracking">TrackingActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>

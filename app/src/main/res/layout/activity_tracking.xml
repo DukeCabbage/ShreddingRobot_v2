@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:gauge="http://schemas.android.com/apk/res-auto"
+    xmlns:meinTV="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:background="@color/grey"
+    tools:context="${relativePackage}.${activityClass}">
+
+    <RelativeLayout
+        android:id="@+id/speedGaugeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/gauge_height"
+        android:background="@color/transparent">
+
+        <com.example.ShreddingRobot.widget.CustomGauge
+            android:id="@+id/speedGauge"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="0dp"
+            android:paddingLeft="@dimen/gauge_padding"
+            android:paddingRight="@dimen/gauge_padding"
+            android:paddingTop="@dimen/gauge_padding"
+            android:background="@color/transparent"
+            gauge:useLapping="false"
+            gauge:useShader="false"
+            gauge:dualValue="true"
+            gauge:pointSize="0"
+            gauge:trackWidth="8dp"
+            gauge:trackColor="@color/white"
+            gauge:strokeCap="BUTT"
+            gauge:strokeWidth="8dp"
+            gauge:strokeColor1="@color/slateBlue"
+            gauge:strokeColor2="@color/magenta"
+            gauge:startAngle="135"
+            gauge:startValue="0"
+            gauge:sweepAngle="270"
+            gauge:endValue="600" />
+
+        <com.example.ShreddingRobot.widget.MeinTextView
+            android:id="@+id/speedTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/gaugeTV_bottom_margin"
+            android:background="@color/transparent"
+            android:gravity="center"
+            android:textSize="28sp"
+            android:visibility="visible"
+            android:shadowColor="@color/white"
+            android:shadowRadius="@integer/text_glow_radius" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/sensorReadingLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@android:color/transparent">
+
+        <RelativeLayout
+            android:id="@+id/sensorReadingLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.example.ShreddingRobot.widget.MeinTextView
+                android:id="@+id/tv_airTimeLabel"
+                android:layout_width="@dimen/airTimeLabel_width"
+                android:layout_height="@dimen/sensorReading_height"
+                android:layout_marginStart="@dimen/airTimeLabel_marginStart"
+                android:layout_marginEnd="@dimen/airTimeLabel_marginEnd"
+                android:gravity="center_vertical"
+                android:text="@string/air_time_label"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sensorReading_textSize"
+                android:shadowColor="@color/white"
+                android:shadowRadius="@integer/text_glow_radius" />
+
+            <com.example.ShreddingRobot.widget.MeinTextView
+                android:id="@+id/tv_airTimeTimer"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/sensorReading_height"
+                android:layout_toEndOf="@id/tv_airTimeLabel"
+                android:gravity="center_vertical"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sensorReading_textSize"
+                android:shadowColor="@color/white"
+                android:shadowRadius="@integer/text_glow_radius" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/sensorReadingLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/sensorReadingLayout1">
+
+            <com.example.ShreddingRobot.widget.MeinTextView
+                android:id="@+id/tv_maxAirTimeLabel"
+                android:layout_width="@dimen/airTimeLabel_width"
+                android:layout_height="@dimen/sensorReading_height"
+                android:layout_marginStart="@dimen/airTimeLabel_marginStart"
+                android:layout_marginEnd="@dimen/airTimeLabel_marginEnd"
+                android:gravity="center_vertical"
+                android:text="@string/max_air_time_label"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sensorReading_textSize"
+                android:shadowColor="@color/white"
+                android:shadowRadius="@integer/text_glow_radius" />
+
+            <com.example.ShreddingRobot.widget.MeinTextView
+                android:id="@+id/tv_maxAirTimeTimer"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/sensorReading_height"
+                android:layout_toEndOf="@id/tv_maxAirTimeLabel"
+                android:gravity="center_vertical"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sensorReading_textSize"
+                android:shadowColor="@color/white"
+                android:shadowRadius="@integer/text_glow_radius" />
+
+        </RelativeLayout>
+
+        <com.example.ShreddingRobot.widget.MeinTextView
+            android:id="@+id/tv_altitude"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/sensorReading_height"
+            android:gravity="center"
+            android:visibility="gone"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sensorReading_textSize"
+            android:shadowColor = "@color/white"
+            android:shadowRadius = "@integer/text_glow_radius"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_marginTop="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|bottom">
+
+        <Button
+            android:id="@+id/sensorSwitchBtn"
+            android:layout_width="@dimen/stropBtnWidth"
+            android:layout_height="@dimen/stropBtnHeight"
+            android:background="@drawable/roundbutton"
+            android:text="@string/stop_btn_text"
+            android:textAllCaps="false"
+            android:textSize="50sp" />
+    </RelativeLayout>
+</LinearLayout>
