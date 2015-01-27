@@ -4,11 +4,16 @@ import android.animation.Animator;
 import android.animation.AnimatorInflater;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.RelativeLayout;
@@ -21,7 +26,10 @@ import com.gloomy.ShreddingRobot.Utility.DaoManager;
 import com.gloomy.ShreddingRobot.Widget.CustomGauge;
 import com.gloomy.ShreddingRobot.Widget.MeinTextView;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.text.DecimalFormat;
+import java.util.Random;
 
 public class TrackResultActivity extends BaseActivity {
 
@@ -56,8 +64,6 @@ public class TrackResultActivity extends BaseActivity {
         findView();
         init();
         bindEvent();
-
-
     }
 
     private void findView() {
@@ -108,40 +114,56 @@ public class TrackResultActivity extends BaseActivity {
                     trackDao.insert(curTrack);
                     finish();
                 }
-
-
             }
         });
 
         delete_btn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Bitmap bitmap = getBitmapFromView(speedLayout);
-//                WXImageObject imgObj = new WXImageObject(bitmap);
-//                WXMediaMessage msg = new WXMediaMessage();
-//                msg.mediaObject = imgObj;
-//
-//                Bitmap thumbBmp = Bitmap.createScaledBitmap(bitmap, SendToWXActivity.THUMB_SIZE, SendToWXActivity.THUMB_SIZE, true);
-//                bitmap.recycle();
-//                msg.thumbData = Util.bmpToByteArray(thumbBmp, true); //set the thumbnail
-//
-//                SendMessageToWX.Req req = new SendMessageToWX.Req();
-//                req.transaction = buildTransaction("img");
-//                req.message = msg;
-//                req.scene = SendMessageToWX.Req.WXSceneTimeline;
-//
-//                api.sendReq(req);
-
+                Bitmap bitmap = getBitmapFromView(speedLayout);
+                Uri fileUri = SaveImage(bitmap);
+                shareToTimeLine(fileUri);
+                Log.e(TAG, "Share weChat moment file saved to: " + fileUri.toString());
             }
         });
     }
-    private Bitmap getBitmapFromView(View v) {
-        Bitmap bitmap = Bitmap.createBitmap(v.getWidth(), v.getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
-        v.draw(canvas);
-        return bitmap;
+
+    private Uri SaveImage(Bitmap bitmap) {
+        File storageDir = Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES);
+        String filename = "weChatMomentShare.png";
+        File file = new File (storageDir, filename);
+        try {
+            FileOutputStream out = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 90, out);
+            out.flush();
+            out.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return Uri.fromFile(file);
     }
 
+    private Bitmap getBitmapFromView(View v) {
+        Bitmap b = Bitmap.createBitmap(v.getWidth(), v.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(b);
+        v.draw(c);
+        return b;
+    }
+
+    private void shareToTimeLine(Uri fileUri) {
+        Intent intent = new Intent();
+        ComponentName comp = new ComponentName("com.tencent.mm",
+                "com.tencent.mm.ui.tools.ShareToTimeLineUI");
+        intent.setComponent(comp);
+        intent.setAction("android.intent.action.SEND");
+        intent.setType("image/*");
+        //intent.setFlags(0x3000001);
+
+        intent.putExtra(Intent.EXTRA_STREAM, fileUri);
+        startActivity(intent);
+    }
 
     private void startEntryAnimation(){
 //        Log.e(TAG, "startEntryAnimaiton");

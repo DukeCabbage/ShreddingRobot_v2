@@ -10,9 +10,9 @@ import android.widget.LinearLayout;
 
 import com.gloomy.ShreddingRobot.Utility.BaseActivity;
 
-
 public class MainActivity extends BaseActivity {
     private static final String TAG = "MainActivity";
+    private static final String WECHAT_APP_ID = "wxbec3a7a47b19ed11";
 
     private Context _context;
     private LinearLayout mainStartBtn, historyBtn, settingBtn;

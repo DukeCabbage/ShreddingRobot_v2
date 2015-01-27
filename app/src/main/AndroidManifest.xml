@@ -28,6 +28,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".SettingActivity"
             android:label="@string/app_name"
@@ -37,6 +38,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.gloomy.ShreddingRobot.MainActivity" />
         </activity>
+
         <activity
             android:name=".TrackingActivity"
             android:hardwareAccelerated="false"
@@ -47,12 +49,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.gloomy.ShreddingRobot.MainActivity" />
         </activity>
+
         <activity
             android:name=".TrackResultActivity"
             android:hardwareAccelerated="false"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
         </activity>
+
         <activity
             android:name=".HistoryActivity"
             android:label="@string/title_activity_history"
@@ -62,5 +66,4 @@
                 android:value="com.gloomy.ShreddingRobot.MainActivity" />
         </activity>
     </application>
-
 </manifest>
