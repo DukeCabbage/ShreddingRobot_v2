@@ -26,8 +26,9 @@
     <dimen name="airTimeIconSize">45dp</dimen>
     <dimen name="airTimeLabel_marginStart">50dp</dimen>
     <dimen name="airTime_marginEnd">50dp</dimen>
-    <dimen name="stropBtnHeight">140dp</dimen>
-    <dimen name="stropBtnWidth">140dp</dimen>
+    <dimen name="stopBtnHeight">120dp</dimen>
+    <dimen name="stopBtnWidth">120dp</dimen>
+    <dimen name="stopBtnMarginBottom">30dp</dimen>
 
     <!-- History Activity layout -->
     <dimen name="histo_main_height">150dp</dimen>

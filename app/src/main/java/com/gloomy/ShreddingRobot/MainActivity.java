@@ -14,7 +14,6 @@ public class MainActivity extends BaseActivity {
     private static final String TAG = "MainActivity";
     private static final String WECHAT_APP_ID = "wxbec3a7a47b19ed11";
 
-    private Context _context;
     private LinearLayout mainStartBtn, historyBtn, settingBtn;
 
     boolean noEntryAnim;
@@ -23,7 +22,6 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        Log.i(TAG, "onCreate");
-        _context = this;
         setContentView(R.layout.activity_main);
 
         findView();

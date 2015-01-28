@@ -26,7 +26,6 @@ public class SettingActivity extends BaseActivity {
     static final int REQUEST_TAKE_PHOTO  = 1;
 
     SharedPreferences.Editor editor;
-    private Context _context;
 
     private int veloUnitToggle;
     public TextView[] veloUnit = new TextView[3];
@@ -44,7 +43,6 @@ public class SettingActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
-        _context = this;
 
         editor = pref.edit();
 

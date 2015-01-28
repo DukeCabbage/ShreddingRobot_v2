@@ -57,7 +57,8 @@
     <RelativeLayout
         android:id="@+id/sensorReadingLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:layout_marginTop="20dp"
         android:background="@android:color/transparent">
 
@@ -137,8 +138,9 @@
 
         <Button
             android:id="@+id/sensorSwitchBtn"
-            android:layout_width="@dimen/stropBtnWidth"
-            android:layout_height="@dimen/stropBtnHeight"
+            android:layout_width="@dimen/stopBtnWidth"
+            android:layout_height="@dimen/stopBtnHeight"
+            android:layout_marginBottom="@dimen/stopBtnMarginBottom"
             android:background="@drawable/roundbutton"
             android:text="@string/stop_btn_text"
             android:textAllCaps="false"

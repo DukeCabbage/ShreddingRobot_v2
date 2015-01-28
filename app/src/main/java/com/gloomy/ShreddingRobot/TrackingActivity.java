@@ -13,6 +13,8 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 
@@ -38,7 +40,6 @@ public class TrackingActivity extends BaseFragmentActivity {
     private static final int AUTOOFF_ALTI_THRESHOLD = 200;
     private static final int AUTOOFF_TIME_THRESHOLD = 1800*1000;
 
-    private Context _context;
     private DecimalFormat sig3 = new DecimalFormat("@@@");
     private DecimalFormat sig2 = new DecimalFormat("@@");
     private DecimalFormat dff = new DecimalFormat("0.00");
@@ -76,10 +77,11 @@ public class TrackingActivity extends BaseFragmentActivity {
     private MeinTextView speedTV;
     private CustomGauge speedGauge;
 
+    private Animation animFadeIn, animFadeOut, scaleEnter, scaleExit;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        _context = this;
         setContentView(R.layout.activity_tracking);
 
         findView();
@@ -135,6 +137,11 @@ public class TrackingActivity extends BaseFragmentActivity {
 
         daoManager = DaoManager.getInstance(_context);
         trackDao = daoManager.getDBTrackDao(DaoManager.TYPE_WRITE);
+
+        animFadeIn = AnimationUtils.loadAnimation(_context, R.anim.fade_in);
+        animFadeOut = AnimationUtils.loadAnimation(_context, R.anim.fade_out);
+        scaleEnter = AnimationUtils.loadAnimation(_context, R.anim.scale_enter);
+        scaleExit = AnimationUtils.loadAnimation(_context, R.anim.scale_exit);
     }
 
     @Override
@@ -160,19 +167,43 @@ public class TrackingActivity extends BaseFragmentActivity {
     }
 
     private void bindEvent() {
-        sensorSwitchBtn.setOnClickListener(new View.OnClickListener() {
-            //			int i;
+
+        scaleEnter.setAnimationListener(new Animation.AnimationListener() {
             @Override
-            public void onClick(View v) {
-                stopTracking();
+            public void onAnimationStart(Animation animation) {}
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                sensorSwitchBtn.setOnClickListener(stopBtnListener);
+            }
+            @Override
+            public void onAnimationRepeat(Animation animation) {}
+        });
+
+        scaleExit.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {}
+            @Override
+            public void onAnimationEnd(Animation animation) {
                 Intent i = new Intent(_context, TrackResultActivity.class);
                 i.putExtra("TRACK_OBJECT" , curTrack);
                 startActivity(i);
                 finish();
                 overridePendingTransition(0, 0);
             }
+            @Override
+            public void onAnimationRepeat(Animation animation) {}
         });
+
+        sensorSwitchBtn.startAnimation(scaleEnter);
     }
+
+    private View.OnClickListener stopBtnListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            stopTracking();
+            sensorSwitchBtn.startAnimation(scaleExit);
+        }
+    };
 
     SensorEventListener mSensorListener = new SensorEventListener() {
         public void onSensorChanged(SensorEvent event) {
@@ -325,13 +356,13 @@ public class TrackingActivity extends BaseFragmentActivity {
     }
 
     protected void updateSpeed(double newSpeed, double accuracy) {
-        Random rand = new Random();
+//        Random rand = new Random();
         if (accuracy > 20) {
             curSpeed = 0.0;
         } else {
-//            curSpeed = newSpeed;
+            curSpeed = newSpeed;
 
-            curSpeed = (double) rand.nextInt(50);
+//            curSpeed = (double) rand.nextInt(50);
             // Update max speed
             if (curSpeed > maxSpeed) {
                 maxSpeed = curSpeed;

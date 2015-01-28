@@ -33,7 +33,6 @@ public class TrackResultActivity extends BaseActivity {
 
     private final String TAG = "TrackResultActivity";
     private static final int GAUGE_STEP_TIME = 40;
-    private Context _context;
     private int veloUnit;
 
     private DaoManager daoManager;
@@ -53,7 +52,6 @@ public class TrackResultActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_track_result);
-        _context = this;
         curTrack = getIntent().getParcelableExtra("TRACK_OBJECT");
 
         maxSpeed = curTrack.getMaxSpeed();
