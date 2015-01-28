@@ -29,7 +29,6 @@ import com.gloomy.ShreddingRobot.Widget.MeinTextView;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.text.DecimalFormat;
-import java.util.Random;
 
 public class TrackResultActivity extends BaseActivity {
 
@@ -122,7 +121,8 @@ public class TrackResultActivity extends BaseActivity {
             public void onClick(View view) {
                 Bitmap bitmap = getBitmapFromView(speedLayout);
                 Uri fileUri = SaveImage(bitmap);
-                shareToTimeLine(fileUri);
+                //shareToTimeLine(fileUri);
+                shareToFriend(fileUri);
                 Log.e(TAG, "Share weChat moment file saved to: " + fileUri.toString());
             }
         });
@@ -152,15 +152,28 @@ public class TrackResultActivity extends BaseActivity {
         return b;
     }
 
-    private void shareToTimeLine(Uri fileUri) {
+//    private void shareToTimeLine(Uri fileUri) {
+//        Intent intent = new Intent();
+//        ComponentName comp = new ComponentName("com.tencent.mm",
+//                "com.tencent.mm.ui.tools.ShareToTimeLineUI");
+//        intent.setComponent(comp);
+//        intent.setAction("android.intent.action.SEND");
+//        intent.setType("image/*");
+//        //intent.setFlags(0x3000001);
+//
+//        intent.putExtra(Intent.EXTRA_STREAM, fileUri);
+//        startActivity(intent);
+//    }
+    private void shareToFriend(Uri fileUri) {
+
         Intent intent = new Intent();
         ComponentName comp = new ComponentName("com.tencent.mm",
-                "com.tencent.mm.ui.tools.ShareToTimeLineUI");
+                "com.tencent.mm.ui.tools.ShareImgUI");
         intent.setComponent(comp);
         intent.setAction("android.intent.action.SEND");
         intent.setType("image/*");
         //intent.setFlags(0x3000001);
-
+        //intent.putExtra(Intent.EXTRA_TEXT,"Say Something");
         intent.putExtra(Intent.EXTRA_STREAM, fileUri);
         startActivity(intent);
     }
