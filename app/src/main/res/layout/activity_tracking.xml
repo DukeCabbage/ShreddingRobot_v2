@@ -8,7 +8,7 @@
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:background="@color/grey"
-    tools:context="${relativePackage}.${activityClass}">
+    tools:context="com.gloomy.ShreddingRobot.TrackingActivity">
 
     <RelativeLayout
         android:id="@+id/speedGaugeLayout"
@@ -50,9 +50,7 @@
             android:background="@color/transparent"
             android:gravity="center"
             android:textSize="28sp"
-            android:visibility="visible"
-            android:shadowColor="@color/white"
-            android:shadowRadius="@integer/text_glow_radius" />
+            android:visibility="visible" />
 
     </RelativeLayout>
 
@@ -78,9 +76,7 @@
                 android:gravity="center_vertical"
                 android:text="@string/air_time_label"
                 android:textColor="@color/white"
-                android:textSize="@dimen/sensorReading_textSize"
-                android:shadowColor="@color/white"
-                android:shadowRadius="@integer/text_glow_radius" />
+                android:textSize="@dimen/sensorReading_textSize" />
 
             <com.gloomy.ShreddingRobot.Widget.MeinTextView
                 android:id="@+id/tv_airTimeTimer"
@@ -89,9 +85,7 @@
                 android:layout_marginEnd="@dimen/airTime_marginEnd"
                 android:gravity="center_vertical"
                 android:textColor="@color/white"
-                android:textSize="@dimen/sensorReading_textSize"
-                android:shadowColor="@color/white"
-                android:shadowRadius="@integer/text_glow_radius" />
+                android:textSize="@dimen/sensorReading_textSize" />
 
         </LinearLayout>
 
@@ -111,9 +105,7 @@
                 android:gravity="center_vertical"
                 android:text="@string/max_air_time_label"
                 android:textColor="@color/white"
-                android:textSize="@dimen/sensorReading_textSize"
-                android:shadowColor="@color/white"
-                android:shadowRadius="@integer/text_glow_radius" />
+                android:textSize="@dimen/sensorReading_textSize" />
 
             <com.gloomy.ShreddingRobot.Widget.MeinTextView
                 android:id="@+id/tv_maxAirTimeTimer"
@@ -122,9 +114,7 @@
                 android:layout_marginEnd="@dimen/airTime_marginEnd"
                 android:gravity="center_vertical"
                 android:textColor="@color/white"
-                android:textSize="@dimen/sensorReading_textSize"
-                android:shadowColor="@color/white"
-                android:shadowRadius="@integer/text_glow_radius" />
+                android:textSize="@dimen/sensorReading_textSize" />
 
         </LinearLayout>
 
@@ -135,9 +125,7 @@
             android:gravity="center"
             android:visibility="gone"
             android:textColor="@color/white"
-            android:textSize="@dimen/sensorReading_textSize"
-            android:shadowColor = "@color/white"
-            android:shadowRadius = "@integer/text_glow_radius"/>
+            android:textSize="@dimen/sensorReading_textSize" />
 
     </RelativeLayout>
 

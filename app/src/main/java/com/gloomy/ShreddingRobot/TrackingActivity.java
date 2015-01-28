@@ -41,6 +41,7 @@ public class TrackingActivity extends BaseFragmentActivity {
     private Context _context;
     private DecimalFormat sig3 = new DecimalFormat("@@@");
     private DecimalFormat sig2 = new DecimalFormat("@@");
+    private DecimalFormat dff = new DecimalFormat("0.00");
 
     boolean tracking;
     boolean freeFalling;
@@ -250,8 +251,8 @@ public class TrackingActivity extends BaseFragmentActivity {
 
         //Timer
         resetCountTime();
-        tv_airTimeTimer.setText(sig2.format(0.0) + " s");
-        tv_maxAirTimeTimer.setText(sig2.format(0.0) + " s");
+        tv_airTimeTimer.setText(dff.format(0.0) + " s");
+        tv_maxAirTimeTimer.setText(dff.format(0.0) + " s");
         destroyTimer();
         mTimer = new Timer();
         mTimerTask = new MyTimerTask();
@@ -301,10 +302,10 @@ public class TrackingActivity extends BaseFragmentActivity {
 //		Log.e(TAG, "reset time");
         if (countTime > maxAirTime) {
             maxAirTime = countTime;
-            tv_maxAirTimeTimer.setText(sig2.format(maxAirTime) + " s");
+            tv_maxAirTimeTimer.setText(dff.format(maxAirTime) + " s");
         }
         countTime = 0.00;
-//        tv_airTimeTimer.setText(sig2.format(countTime) + " s");
+//        tv_airTimeTimer.setText(dff.format(countTime) + " s");
     }
 
     class MyTimerTask extends TimerTask {
@@ -315,7 +316,7 @@ public class TrackingActivity extends BaseFragmentActivity {
                 public void run() {
                     if (freeFalling) {
                         countTime += ((double) SENSOR_UPDATE_TIME_IN_MILLISECONDS) / 1000.0;
-                        tv_airTimeTimer.setText(sig2.format(countTime) + " s");
+                        tv_airTimeTimer.setText(dff.format(countTime) + " s");
                     }
                     autoOff_countDown -= SENSOR_UPDATE_TIME_IN_MILLISECONDS;
                 }

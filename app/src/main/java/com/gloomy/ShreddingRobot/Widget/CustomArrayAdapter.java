@@ -62,6 +62,7 @@ public class CustomArrayAdapter extends ArrayAdapter<DBTrack>{
     SimpleDateFormat dateF = new SimpleDateFormat("EEE, MMM d, yyyy", Locale.US);
     DecimalFormat sig3 = new DecimalFormat("@@@");
     DecimalFormat sig2 = new DecimalFormat("@@");
+    private DecimalFormat dff = new DecimalFormat("0.00");
 
     public CustomArrayAdapter(Context context, List<DBTrack> objects, SharedPreferences pref) {
         super(context, R.layout.history_item_layout, objects);
@@ -151,7 +152,7 @@ public class CustomArrayAdapter extends ArrayAdapter<DBTrack>{
             }
         }
 
-        viewHolder.maxAirTime.setText(sig2.format(maxAirTime));
+        viewHolder.maxAirTime.setText(dff.format(maxAirTime));
         int veloUnit = _pref.getInt("VELOCITY_UNIT", 0);
         double displayMaxSpeed = maxSpeed;
 

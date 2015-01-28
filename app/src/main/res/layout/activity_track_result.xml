@@ -53,9 +53,7 @@
                 android:gravity="center"
                 android:background="@color/transparent"
                 android:textSize="26sp"
-                android:visibility="gone"
-                android:shadowColor = "@color/white"
-                android:shadowRadius = "@integer/text_glow_radius" />
+                android:visibility="gone" />
 
         </RelativeLayout>
 
@@ -98,9 +96,7 @@
                 android:gravity="center"
                 android:background="@color/transparent"
                 android:textSize="26sp"
-                android:visibility="gone"
-                android:shadowColor = "@color/white"
-                android:shadowRadius = "@integer/text_glow_radius" />
+                android:visibility="gone" />
 
         </RelativeLayout>
 
@@ -122,9 +118,7 @@
             android:background="@color/save_green"
             android:gravity="center"
             android:textSize="@dimen/track_btn_icon_size"
-            meinTV:fontPath="fonts/fontawesome.ttf"
-            android:shadowColor = "@color/white"
-            android:shadowRadius = "@integer/text_glow_radius" />
+            meinTV:fontPath="fonts/fontawesome.ttf" />
 
         <com.gloomy.ShreddingRobot.Widget.MeinTextView
             android:id="@+id/delete_btn"
@@ -134,9 +128,7 @@
             android:background="@color/delete_red"
             android:gravity="center"
             android:textSize="@dimen/track_btn_icon_size"
-            meinTV:fontPath="fonts/fontawesome.ttf"
-            android:shadowColor = "@color/white"
-            android:shadowRadius = "@integer/text_glow_radius" />
+            meinTV:fontPath="fonts/fontawesome.ttf" />
     </LinearLayout>
 
 </RelativeLayout>
