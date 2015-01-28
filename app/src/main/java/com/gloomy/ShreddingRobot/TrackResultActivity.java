@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.animation.AnimatorInflater;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -122,7 +121,7 @@ public class TrackResultActivity extends BaseActivity {
                 Bitmap bitmap = getBitmapFromView(speedLayout);
                 Uri fileUri = SaveImage(bitmap);
                 //shareToTimeLine(fileUri);
-                shareToFriend(fileUri);
+                shareToAll(fileUri);
                 Log.e(TAG, "Share weChat moment file saved to: " + fileUri.toString());
             }
         });
@@ -152,32 +151,13 @@ public class TrackResultActivity extends BaseActivity {
         return b;
     }
 
-//    private void shareToTimeLine(Uri fileUri) {
-//        Intent intent = new Intent();
-//        ComponentName comp = new ComponentName("com.tencent.mm",
-//                "com.tencent.mm.ui.tools.ShareToTimeLineUI");
-//        intent.setComponent(comp);
-//        intent.setAction("android.intent.action.SEND");
-//        intent.setType("image/*");
-//        //intent.setFlags(0x3000001);
-//
-//        intent.putExtra(Intent.EXTRA_STREAM, fileUri);
-//        startActivity(intent);
-//    }
-    private void shareToFriend(Uri fileUri) {
-
+    private void shareToAll(Uri fileUri) {
         Intent intent = new Intent();
-        ComponentName comp = new ComponentName("com.tencent.mm",
-                "com.tencent.mm.ui.tools.ShareImgUI");
-        intent.setComponent(comp);
-        intent.setAction("android.intent.action.SEND");
+        intent.setAction(Intent.ACTION_SEND);
         intent.setType("image/*");
-        //intent.setFlags(0x3000001);
-        //intent.putExtra(Intent.EXTRA_TEXT,"Say Something");
         intent.putExtra(Intent.EXTRA_STREAM, fileUri);
         startActivity(intent);
     }
-
     private void startEntryAnimation(){
 //        Log.e(TAG, "startEntryAnimaiton");
         AnimatorSet btnEntry1 = (AnimatorSet) AnimatorInflater.loadAnimator(_context,
