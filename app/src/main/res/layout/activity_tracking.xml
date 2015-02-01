@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
+    android:clipChildren="false"
     android:background="@color/grey"
     tools:context="com.gloomy.ShreddingRobot.TrackingActivity">
 
@@ -131,9 +132,9 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_marginTop="30dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:clipChildren="false"
         android:layout_gravity="center_horizontal|bottom">
 
         <Button

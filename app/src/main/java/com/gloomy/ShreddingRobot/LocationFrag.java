@@ -99,7 +99,7 @@ public class LocationFrag extends Fragment implements
 
     @Override
     public void onConnected(Bundle dataBundle) {
-        Toast.makeText(_context, "Connected", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(_context, "Connected", Toast.LENGTH_SHORT).show();
         // Send request for location update
         LocationServices.FusedLocationApi.requestLocationUpdates(
                 mGoogleApiClient, mLocationRequest, this);

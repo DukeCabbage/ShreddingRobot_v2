@@ -3,10 +3,21 @@
 
     <scale
         android:duration="@integer/scale_enter"
-        android:fromXScale="0.1"
-        android:fromYScale="0.1"
+        android:fromXScale="0.01"
+        android:fromYScale="0.01"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:toXScale="1.1"
+        android:toYScale="1.1" />
+
+    <scale
+        android:duration="100"
+        android:startOffset="@integer/scale_enter"
+        android:fromXScale="1.1"
+        android:fromYScale="1.1"
         android:pivotX="50%"
         android:pivotY="50%"
         android:toXScale="1"
         android:toYScale="1" />
+
 </set>
