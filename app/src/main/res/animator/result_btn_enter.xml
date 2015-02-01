@@ -9,7 +9,7 @@
         android:duration="300" />
 
     <objectAnimator
-        android:valueFrom="@dimen/trackresult_bot_button_height"
+        android:valueFrom="@dimen/result_btn_height"
         android:valueTo="-40"
         android:propertyName="translationY"
         android:interpolator="@android:anim/decelerate_interpolator"

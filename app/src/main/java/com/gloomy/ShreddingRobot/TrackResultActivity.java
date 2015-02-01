@@ -43,7 +43,7 @@ public class TrackResultActivity extends BaseActivity {
     private RelativeLayout speedLayout;
     private CustomGauge speedGauge, timeGauge;
     private MeinTextView speedTV, timeTV;
-    private MeinTextView delete_btn,save_btn;
+//    private MeinTextView delete_btn,save_btn;
 
     private final DecimalFormat speedDF = new DecimalFormat("@@@");
     private final DecimalFormat airTimeDF = new DecimalFormat("0000.");
@@ -63,10 +63,10 @@ public class TrackResultActivity extends BaseActivity {
     }
 
     private void findView() {
-        delete_btn = (MeinTextView) findViewById(R.id.delete_btn);
-        save_btn = (MeinTextView) findViewById(R.id.save_btn);
-        delete_btn.setText(Constants.ICON_DELETE);
-        save_btn.setText(Constants.ICON_SAVE);
+//        delete_btn = (MeinTextView) findViewById(R.id.delete_btn);
+//        save_btn = (MeinTextView) findViewById(R.id.save_btn);
+//        delete_btn.setText(Constants.ICON_DELETE);
+//        save_btn.setText(Constants.ICON_SAVE);
 
         speedLayout = (RelativeLayout) findViewById(R.id.maxSpeedGaugeLayout);
 
@@ -75,8 +75,8 @@ public class TrackResultActivity extends BaseActivity {
         speedTV = (MeinTextView) findViewById(R.id.maxSpeedTV);
         timeTV = (MeinTextView) findViewById(R.id.airTimeTV);
 
-        save_btn.setVisibility(View.GONE);
-        delete_btn.setVisibility(View.GONE);
+//        save_btn.setVisibility(View.GONE);
+//        delete_btn.setVisibility(View.GONE);
         speedGauge.setVisibility(View.GONE);
         timeGauge.setVisibility(View.GONE);
     }
@@ -100,27 +100,6 @@ public class TrackResultActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 startEntryAnimation();
-            }
-        });
-
-        save_btn.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (curTrack!=null) {
-                    trackDao.insert(curTrack);
-                    finish();
-                }
-            }
-        });
-
-        delete_btn.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bitmap bitmap = getBitmapFromView(speedLayout);
-                Uri fileUri = SaveImage(bitmap);
-                //shareToTimeLine(fileUri);
-                shareToAll(fileUri);
-                Log.e(TAG, "Share weChat moment file saved to: " + fileUri.toString());
             }
         });
     }
@@ -158,30 +137,6 @@ public class TrackResultActivity extends BaseActivity {
     }
     private void startEntryAnimation(){
 //        Log.e(TAG, "startEntryAnimaiton");
-        AnimatorSet btnEntry1 = (AnimatorSet) AnimatorInflater.loadAnimator(_context,
-                R.animator.result_btn_enter);
-        btnEntry1.setTarget(save_btn);
-        btnEntry1.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationStart(Animator animation) {
-                save_btn.setVisibility(View.VISIBLE);
-                save_btn.setAlpha(0.0f);
-            }
-        });
-        btnEntry1.start();
-
-        AnimatorSet btnEntry2 = (AnimatorSet) AnimatorInflater.loadAnimator(_context,
-                R.animator.result_btn_enter);
-        btnEntry2.setTarget(delete_btn);
-        btnEntry2.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationStart(Animator animation) {
-                delete_btn.setVisibility(View.VISIBLE);
-                delete_btn.setAlpha(0.0f);
-            }
-        });
-        btnEntry2.setStartDelay(500l);
-        btnEntry2.start();
 
         AnimatorSet zoomIn1 = (AnimatorSet) AnimatorInflater.loadAnimator(_context,
                 R.animator.zoom_in_center);

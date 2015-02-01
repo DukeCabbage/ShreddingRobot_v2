@@ -26,9 +26,13 @@
     <dimen name="airTimeIconSize">45dp</dimen>
     <dimen name="airTimeLabel_marginStart">50dp</dimen>
     <dimen name="airTime_marginEnd">50dp</dimen>
+
     <dimen name="stopBtnHeight">120dp</dimen>
     <dimen name="stopBtnWidth">120dp</dimen>
     <dimen name="stopBtnMarginBottom">30dp</dimen>
+
+    <dimen name="result_btn_height">100dp</dimen>
+    <dimen name="result_btn_text_size">40sp</dimen>
 
     <!-- History Activity layout -->
     <dimen name="histo_main_height">150dp</dimen>
@@ -48,8 +52,8 @@
 	<dimen name="share_icon_font_size">30sp</dimen>
 
     <!-- TrackResult Activity layout -->
-    <dimen name="trackresult_bot_button_height">100dp</dimen>
-    <dimen name="track_btn_icon_size">40sp</dimen>
+    <!--<dimen name="trackresult_bot_button_height">100dp</dimen>-->
+    <!--<dimen name="track_btn_icon_size">40sp</dimen>-->
 
     <!-- Setting Activity layout-->
     <dimen name="profile_panel_height">100dp</dimen>

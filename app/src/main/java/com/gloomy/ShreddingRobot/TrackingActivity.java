@@ -1,11 +1,14 @@
 package com.gloomy.ShreddingRobot;
 
+import android.animation.Animator;
+import android.animation.AnimatorInflater;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
 import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -16,11 +19,13 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.gloomy.ShreddingRobot.Dao.DBTrack;
 import com.gloomy.ShreddingRobot.Dao.DBTrackDao;
 import com.gloomy.ShreddingRobot.Utility.BaseFragmentActivity;
+import com.gloomy.ShreddingRobot.Utility.Constants;
 import com.gloomy.ShreddingRobot.Utility.DaoManager;
 import com.gloomy.ShreddingRobot.Widget.CustomGauge;
 import com.gloomy.ShreddingRobot.Widget.MeinTextView;
@@ -35,7 +40,9 @@ import java.util.concurrent.ArrayBlockingQueue;
 
 public class TrackingActivity extends BaseFragmentActivity {
     private static final String TAG = "TrackingActivity";
-    private static final int SENSOR_UPDATE_TIME_IN_MILLISECONDS = 10;
+    private static final int SENSOR_UPDATE_TIME_IN_MILLISECONDS = 50;
+    private static final int TRACK_TIMER_INTERVAL_IN_MINUTES = 1;
+    private static final int TRACK_TIMER_INTERVAL_IN_MILLISECONDS = TRACK_TIMER_INTERVAL_IN_MINUTES*60*1000;
     private static final int ALTITUDE_AVERAGING_QUEUE_SIZE = 20;
     private static final int AUTOOFF_ALTI_THRESHOLD = 200;
     private static final int AUTOOFF_TIME_THRESHOLD = 1800*1000;
@@ -48,7 +55,6 @@ public class TrackingActivity extends BaseFragmentActivity {
     boolean freeFalling;
     boolean noGraSensor;
 
-    private DaoManager daoManager;
     private DBTrackDao trackDao;
     public DBTrack curTrack;
 
@@ -59,25 +65,37 @@ public class TrackingActivity extends BaseFragmentActivity {
     private Sensor mGraSensor;
     private Sensor mAccSensor;
 
-    private Timer mTimer;
-    private MyTimerTask mTimerTask;
+    private Timer sensorTimer, trackTimer;
+    private SensorTimerTask sensorTimerTask;
+    private TrackTimerTask trackTimerTask;
     private int autoOff_countDown;
     private int veloUnit, toggleOff, toggleAlti;
     private double[] graReading;
     private double[] accReading;
     private double graMag, accMag;
+
+    private Date trackDate;
+    private int trackLength;
     private double countTime, maxAirTime;
     private double curSpeed, maxSpeed;
     private ArrayBlockingQueue<Double> rawAltData;
     private double curAltitude, altitude_min;
-    public Button sensorSwitchBtn;
-    public MeinTextView tv_airTimeTimer, tv_maxAirTimeTimer, tv_altitude;
 
     private RelativeLayout speedGaugeLayout;
     private MeinTextView speedTV;
     private CustomGauge speedGauge;
 
-    private Animation animFadeIn, animFadeOut, scaleEnter, scaleExit;
+    private MeinTextView tv_trackLength;
+    private MeinTextView tv_airTimeTimer, tv_maxAirTimeTimer;
+
+    private RelativeLayout stopBtnLayout;
+    private Button stopBtn;
+
+    private LinearLayout btnLayout;
+    private MeinTextView repeatBtn, continueBtn;
+
+    private Animation scaleEnter, scaleExit;
+    private AnimatorSet btnEntry1, btnEntry2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +103,9 @@ public class TrackingActivity extends BaseFragmentActivity {
         setContentView(R.layout.activity_tracking);
 
         findView();
+        initView();
         init();
+        setupAnimation();
         bindEvent();
     }
 
@@ -104,20 +124,32 @@ public class TrackingActivity extends BaseFragmentActivity {
         speedGaugeLayout = (RelativeLayout) findViewById(R.id.speedGaugeLayout);
         speedGauge = (CustomGauge) speedGaugeLayout.findViewById(R.id.speedGauge);
         speedTV = (MeinTextView) speedGaugeLayout.findViewById(R.id.speedTV);
-        speedTV.setText("Speed");
 
+        tv_trackLength = (MeinTextView) findViewById(R.id.tv_trackLengthTimer);
         tv_airTimeTimer = (MeinTextView) findViewById(R.id.tv_airTimeTimer);
         tv_maxAirTimeTimer = (MeinTextView) findViewById(R.id.tv_maxAirTimeTimer);
-        tv_altitude = (MeinTextView) findViewById(R.id.tv_altitude);
 
-        sensorSwitchBtn = (Button) findViewById(R.id.sensorSwitchBtn);
+        stopBtn = (Button) findViewById(R.id.sensorSwitchBtn);
+        stopBtnLayout = (RelativeLayout) stopBtn.getParent();
+
+        btnLayout = (LinearLayout) findViewById(R.id.btn_layout);
+        repeatBtn = (MeinTextView) findViewById(R.id.repeat_btn);
+        continueBtn = (MeinTextView) findViewById(R.id.continue_btn);
+    }
+
+    private void initView() {
+        speedTV.setText("Speed");
+
+        btnLayout.setVisibility(View.GONE);
+        repeatBtn.setText(Constants.ICON_REPEAT);
+        continueBtn.setText(Constants.ICON_ARROW_RIGHT);
     }
 
     private void init() {
         tracking = false;
         freeFalling = false;
         noGraSensor = false;
-        rawAltData = new ArrayBlockingQueue<Double> (ALTITUDE_AVERAGING_QUEUE_SIZE);
+        rawAltData = new ArrayBlockingQueue<> (ALTITUDE_AVERAGING_QUEUE_SIZE);
 
         fragmentManager = getFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
@@ -127,83 +159,65 @@ public class TrackingActivity extends BaseFragmentActivity {
 
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mGraSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY);
-        if (mGraSensor == null) {
-            noGraSensor = true;
-        }
+        noGraSensor = mGraSensor == null;
         mAccSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
         graReading = new double[3];
         accReading = new double[3];
 
-        daoManager = DaoManager.getInstance(_context);
+        DaoManager daoManager = DaoManager.getInstance(_context);
         trackDao = daoManager.getDBTrackDao(DaoManager.TYPE_WRITE);
+    }
 
-        animFadeIn = AnimationUtils.loadAnimation(_context, R.anim.fade_in);
-        animFadeOut = AnimationUtils.loadAnimation(_context, R.anim.fade_out);
-        scaleEnter = AnimationUtils.loadAnimation(_context, R.anim.scale_enter);
-        scaleExit = AnimationUtils.loadAnimation(_context, R.anim.scale_exit);
+    private void bindEvent() {
+        stopBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                stopTracking();
+                stopBtn.startAnimation(scaleExit);
+            }
+        });
+        repeatBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                trackDao.insert(curTrack);
+                btnLayout.setVisibility(View.GONE);
+                startTracking();
+            }
+        });
+        continueBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                trackDao.insert(curTrack);
+                finish();
+            }
+        });
     }
 
     @Override
     public void onBackPressed() {
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(_context);
-        builder.setTitle(_context.getString(R.string.quit_tracking_title));
-        builder.setMessage(_context.getString(R.string.quit_tracking_message))
-                .setCancelable(false)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        stopTracking();
-                        TrackingActivity.this.finish();
-                    }
-                })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-        AlertDialog alert = builder.create();
-        alert.show();
-    }
-
-    private void bindEvent() {
-
-        scaleEnter.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {}
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                sensorSwitchBtn.setOnClickListener(stopBtnListener);
-            }
-            @Override
-            public void onAnimationRepeat(Animation animation) {}
-        });
-
-        scaleExit.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {}
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                Intent i = new Intent(_context, TrackResultActivity.class);
-                i.putExtra("TRACK_OBJECT" , curTrack);
-                startActivity(i);
-                finish();
-                overridePendingTransition(0, 0);
-            }
-            @Override
-            public void onAnimationRepeat(Animation animation) {}
-        });
-
-        sensorSwitchBtn.startAnimation(scaleEnter);
-    }
-
-    private View.OnClickListener stopBtnListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            stopTracking();
-            sensorSwitchBtn.startAnimation(scaleExit);
+        if (tracking) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(_context);
+            builder.setTitle(_context.getString(R.string.quit_tracking_title));
+            builder.setMessage(_context.getString(R.string.quit_tracking_message))
+                    .setCancelable(false)
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            stopTracking();
+                            TrackingActivity.this.finish();
+                        }
+                    })
+                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
+//        } else {
+            //TODO: Implement resume function
         }
-    };
+    }
 
     SensorEventListener mSensorListener = new SensorEventListener() {
         public void onSensorChanged(SensorEvent event) {
@@ -263,7 +277,7 @@ public class TrackingActivity extends BaseFragmentActivity {
 
             if(toggleOff != 0) {
                 if (autoOff_countDown == 0) {
-                    sensorSwitchBtn.performClick();
+                    stopBtn.performClick();
                 }
             }
         }
@@ -281,13 +295,22 @@ public class TrackingActivity extends BaseFragmentActivity {
         tracking = true;
 
         //Timer
-        resetCountTime();
+        trackDate = new Date();
+        trackLength = 0;
+        countTime = 0.0;
+        maxAirTime = 0.0;
+
+        tv_trackLength.setText(trackLength + " min");
         tv_airTimeTimer.setText(dff.format(0.0) + " s");
         tv_maxAirTimeTimer.setText(dff.format(0.0) + " s");
         destroyTimer();
-        mTimer = new Timer();
-        mTimerTask = new MyTimerTask();
-        mTimer.scheduleAtFixedRate(mTimerTask, 1000, SENSOR_UPDATE_TIME_IN_MILLISECONDS);
+        trackTimer = new Timer();
+        trackTimerTask = new TrackTimerTask();
+        trackTimer.scheduleAtFixedRate(trackTimerTask, TRACK_TIMER_INTERVAL_IN_MILLISECONDS, TRACK_TIMER_INTERVAL_IN_MILLISECONDS);
+
+        sensorTimer = new Timer();
+        sensorTimerTask = new SensorTimerTask();
+        sensorTimer.scheduleAtFixedRate(sensorTimerTask, 1000, SENSOR_UPDATE_TIME_IN_MILLISECONDS);
         autoOff_countDown = AUTOOFF_TIME_THRESHOLD*toggleOff;
 
         //Location fragment
@@ -299,10 +322,12 @@ public class TrackingActivity extends BaseFragmentActivity {
         long id = (long) (rg.nextDouble() * 999999);
         curTrack = new DBTrack(id);
         curTrack.setDate(new Date());
+
+        // Animate stop button enter
+        startTrackAnim();
     }
 
     private void stopTracking() {
-//        Log.e(TAG, "stop tracking");
         //Motion Sensor
         mSensorManager.unregisterListener(mSensorListener);
 
@@ -317,15 +342,21 @@ public class TrackingActivity extends BaseFragmentActivity {
     }
 
     private void summarizeTrack() {
+        curTrack.setDate(trackDate);
         curTrack.setMaxAirTime(maxAirTime);
         curTrack.setMaxSpeed(maxSpeed);
     }
 
     private void destroyTimer() {
-        if (mTimer != null) {
-            mTimerTask.cancel();
-            mTimer.cancel();
-            mTimer = null;
+        if (sensorTimer != null) {
+            sensorTimerTask.cancel();
+            sensorTimer.cancel();
+            sensorTimer = null;
+        }
+        if (trackTimer != null) {
+            trackTimerTask.cancel();
+            trackTimer.cancel();
+            trackTimer = null;
         }
     }
 
@@ -335,11 +366,10 @@ public class TrackingActivity extends BaseFragmentActivity {
             maxAirTime = countTime;
             tv_maxAirTimeTimer.setText(dff.format(maxAirTime) + " s");
         }
-        countTime = 0.00;
-//        tv_airTimeTimer.setText(dff.format(countTime) + " s");
+        countTime = 0.0;
     }
 
-    class MyTimerTask extends TimerTask {
+    class SensorTimerTask extends TimerTask {
         @Override
         public void run() {
             runOnUiThread(new Runnable() {
@@ -350,6 +380,19 @@ public class TrackingActivity extends BaseFragmentActivity {
                         tv_airTimeTimer.setText(dff.format(countTime) + " s");
                     }
                     autoOff_countDown -= SENSOR_UPDATE_TIME_IN_MILLISECONDS;
+                }
+            });
+        }
+    }
+
+    class TrackTimerTask extends TimerTask {
+        @Override
+        public void run() {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    trackLength += TRACK_TIMER_INTERVAL_IN_MINUTES;
+                    tv_trackLength.setText(trackLength + " min");
                 }
             });
         }
@@ -377,7 +420,7 @@ public class TrackingActivity extends BaseFragmentActivity {
     protected void updateAltimeter(double newAltitude) {
 //		Log.e(TAG, "" + newAltitude);
         if (newAltitude == 0.0) {
-//            Log.e(TAG, "no altitude reading");
+            Log.e(TAG, "no altitude reading");
         } else {
             curAltitude *= ALTITUDE_AVERAGING_QUEUE_SIZE;
             boolean stabilizedAlt = rawAltData.size() == ALTITUDE_AVERAGING_QUEUE_SIZE;
@@ -398,10 +441,10 @@ public class TrackingActivity extends BaseFragmentActivity {
                 } else if (curAltitude > (altitude_min+AUTOOFF_ALTI_THRESHOLD*toggleAlti)) {
 
                     if(toggleAlti != 0) {
-                        sensorSwitchBtn.performClick();
+                        stopBtn.performClick();
                     }
                 }
-                tv_altitude.setText(sig3.format(curAltitude) + " m");
+//                tv_altitude.setText(sig3.format(curAltitude) + " m");
             }
         }
     }
@@ -444,5 +487,74 @@ public class TrackingActivity extends BaseFragmentActivity {
                 }
             }
         }.start();
+    }
+
+    private void setupAnimation() {
+        // Stop button entry animation, setup onClickListener
+        scaleEnter = AnimationUtils.loadAnimation(_context, R.anim.scale_enter);
+        scaleEnter.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                stopBtn.setClickable(false);
+            }
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                stopBtn.setClickable(true);
+            }
+            @Override
+            public void onAnimationRepeat(Animation animation) {}
+        });
+
+        // Stop button exit animation
+        scaleExit = AnimationUtils.loadAnimation(_context, R.anim.scale_exit);
+        scaleExit.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {}
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                stopTrackAnim();
+                stopBtnLayout.setVisibility(View.GONE);
+                btnLayout.setVisibility(View.VISIBLE);
+            }
+            @Override
+            public void onAnimationRepeat(Animation animation) {}
+        });
+
+        // Result option 1 entering from bottom
+        btnEntry1 = (AnimatorSet) AnimatorInflater.loadAnimator(_context,
+                R.animator.result_btn_enter);
+        btnEntry1.setTarget(repeatBtn);
+        btnEntry1.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                repeatBtn.setVisibility(View.VISIBLE);
+                repeatBtn.setAlpha(0.0f);
+            }
+        });
+
+        // Result option 2 entering from bottom lagging behind
+        btnEntry2 = (AnimatorSet) AnimatorInflater.loadAnimator(_context,
+                R.animator.result_btn_enter);
+        btnEntry2.setTarget(continueBtn);
+        btnEntry2.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                continueBtn.setVisibility(View.VISIBLE);
+                continueBtn.setAlpha(0.0f);
+            }
+        });
+        btnEntry2.setStartDelay(500l);
+    }
+
+    private void startTrackAnim() {
+        Log.e(TAG, "startTrackAnim");
+        stopBtnLayout.setVisibility(View.VISIBLE);
+        stopBtn.startAnimation(scaleEnter);
+    }
+
+    private void stopTrackAnim(){
+        Log.e(TAG, "stopTrackAnim");
+        btnEntry1.start();
+        btnEntry2.start();
     }
 }

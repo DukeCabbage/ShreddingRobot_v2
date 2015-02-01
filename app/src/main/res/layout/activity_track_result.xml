@@ -102,33 +102,33 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/btn_layout"
-        android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:layout_alignParentBottom="true"
-        android:gravity="bottom"
-        android:orientation="horizontal">
+    <!--<LinearLayout-->
+        <!--android:id="@+id/btn_layout"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="120dp"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:gravity="bottom"-->
+        <!--android:orientation="horizontal">-->
 
-        <com.gloomy.ShreddingRobot.Widget.MeinTextView
-            android:id="@+id/save_btn"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/trackresult_bot_button_height"
-            android:background="@color/save_green"
-            android:gravity="center"
-            android:textSize="@dimen/track_btn_icon_size"
-            meinTV:fontPath="fonts/fontawesome.ttf" />
+        <!--<com.gloomy.ShreddingRobot.Widget.MeinTextView-->
+            <!--android:id="@+id/save_btn"-->
+            <!--android:layout_weight="1"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="@dimen/trackresult_bot_button_height"-->
+            <!--android:background="@color/save_green"-->
+            <!--android:gravity="center"-->
+            <!--android:textSize="@dimen/track_btn_icon_size"-->
+            <!--meinTV:fontPath="fonts/fontawesome.ttf" />-->
 
-        <com.gloomy.ShreddingRobot.Widget.MeinTextView
-            android:id="@+id/delete_btn"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/trackresult_bot_button_height"
-            android:background="@color/delete_red"
-            android:gravity="center"
-            android:textSize="@dimen/track_btn_icon_size"
-            meinTV:fontPath="fonts/fontawesome.ttf" />
-    </LinearLayout>
+        <!--<com.gloomy.ShreddingRobot.Widget.MeinTextView-->
+            <!--android:id="@+id/delete_btn"-->
+            <!--android:layout_weight="1"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="@dimen/trackresult_bot_button_height"-->
+            <!--android:background="@color/delete_red"-->
+            <!--android:gravity="center"-->
+            <!--android:textSize="@dimen/track_btn_icon_size"-->
+            <!--meinTV:fontPath="fonts/fontawesome.ttf" />-->
+    <!--</LinearLayout>-->
 
 </RelativeLayout>

@@ -17,6 +17,8 @@
     <!-- Tracking Activity -->
     <string name="quit_tracking_title">Quit Tracking</string>
     <string name="quit_tracking_message">Do you wanna quit tracking and go back to main menu</string>
+
+    <string name="track_length_label">Track Length:</string>
     <string name="air_time_label">Air Time:</string>
     <string name="max_air_time_label">Max Air Time:</string>
     <string name="stop_btn_text">Stop</string>

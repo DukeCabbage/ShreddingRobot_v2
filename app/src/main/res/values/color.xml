@@ -15,16 +15,22 @@
     <color name="deepSkyBlue">#191970</color>
     <color name="lightSkyBlue">#00BFFF</color>
     <color name="transparent">@android:color/transparent</color>>
+    <color name="slateBlue">#6A5ACD</color>
+    <color name="magenta">#FF00FF</color>
+    <color name="cornSilk">#FFF8DC</color>
+    <color name="deepOrange">#FF5728</color>
+    <color name="teal">#00796B</color>
 
     <!-- Tracking Activity -->
     <color name="shreddingBG">#1BA1E2</color>
+    <color name="repeat_bg">@color/deepOrange</color>
+    <color name="continue_bg">@color/teal</color>
 
     <!-- Tracking Result Activity -->
     <color name="delete_red">#FA6C7A</color>
     <color name="save_green">#27C8BE</color>
     <color name="result_BG">#101010</color>
-    <color name="slateBlue">#6A5ACD</color>
-    <color name="magenta">#FF00FF</color>
+
 
     <array name="speed_gauge_color">
         <item>#FFF000</item>
@@ -38,37 +44,6 @@
     <color name="history_background">#004689</color>
     <color name="history_selected_background">#004E99</color>
     <color name="history_list_divider">#1E88E5</color>
-
-    <color name="facebook">#3468af</color>
-    <color name="facebook_selected">#1a4e95</color>
-    <color name="wechat">#00d40d</color>
-    <color name="wechat_selected">#00b70c</color>
-    <color name="google_plus">#e64c65</color>
-    <color name="google_plus_selected">#cc324b</color>
-    <color name="twitter">#4fc4f6</color>
-    <color name="twitter_selected">#35aadc</color>
-
-    <array name="histo_color">
-        <item>#A4C400</item>
-        <item>#60A917</item>
-        <item>#008A00</item>
-        <item>#00ABA9</item>
-        <item>#1BA1E2</item>
-        <item>#0050EF</item>
-        <item>#6A00FF</item>
-        <item>#AA00FF</item>
-        <item>#F472D0</item>
-        <item>#D80073</item>
-        <item>#A20025</item>
-        <item>#E51400</item>
-        <item>#FA6800</item>
-        <item>#E3C800</item>
-        <item>#825A2C</item>
-        <item>#6D8764</item>
-        <item>#647687</item>
-        <item>#76608A</item>
-        <item>#87794E</item>
-    </array>
 
     <!-- Setting Activity -->
     <color name="veloUnit0">@color/settings</color>

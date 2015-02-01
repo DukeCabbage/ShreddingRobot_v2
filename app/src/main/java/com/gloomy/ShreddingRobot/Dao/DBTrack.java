@@ -22,8 +22,8 @@ public class DBTrack implements Parcelable {
         this.maxSpeed = 0.0;
         this.avgSpeed = 0.0;
         this.maxAirTime = 0.0;
-        this.locationName = "Cypress";
-        this.date = new java.util.Date();
+        this.locationName = "";
+        this.date = null;
     }
 
     public DBTrack(Long id, Double maxSpeed, Double avgSpeed,

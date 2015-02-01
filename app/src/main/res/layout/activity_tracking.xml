@@ -64,10 +64,39 @@
         android:background="@android:color/transparent">
 
         <LinearLayout
-            android:id="@+id/sensorReadingLayout1"
+            android:id="@+id/sensorReadingLayout3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
+
+            <com.gloomy.ShreddingRobot.Widget.MeinTextView
+                android:id="@+id/tv_trackLengthLabel"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/sensorReading_height"
+                android:layout_marginStart="@dimen/airTimeLabel_marginStart"
+                android:gravity="center_vertical"
+                android:text="@string/track_length_label"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sensorReading_textSize" />
+
+            <com.gloomy.ShreddingRobot.Widget.MeinTextView
+                android:id="@+id/tv_trackLengthTimer"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/sensorReading_height"
+                android:layout_marginEnd="@dimen/airTime_marginEnd"
+                android:gravity="center_vertical"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sensorReading_textSize" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/sensorReadingLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@+id/sensorReadingLayout3">
 
             <com.gloomy.ShreddingRobot.Widget.MeinTextView
                 android:id="@+id/tv_airTimeLabel"
@@ -96,7 +125,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_below="@+id/sensorReadingLayout1">
+            android:layout_below="@+id/sensorReadingLayout1" >
 
             <com.gloomy.ShreddingRobot.Widget.MeinTextView
                 android:id="@+id/tv_maxAirTimeLabel"
@@ -119,23 +148,14 @@
                 android:textSize="@dimen/sensorReading_textSize" />
 
         </LinearLayout>
-
-        <com.gloomy.ShreddingRobot.Widget.MeinTextView
-            android:id="@+id/tv_altitude"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/sensorReading_height"
-            android:gravity="center"
-            android:visibility="gone"
-            android:textColor="@color/white"
-            android:textSize="@dimen/sensorReading_textSize" />
-
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|bottom"
         android:clipChildren="false"
-        android:layout_gravity="center_horizontal|bottom">
+        android:visibility="gone" >
 
         <Button
             android:id="@+id/sensorSwitchBtn"
@@ -147,4 +167,34 @@
             android:textAllCaps="false"
             android:textSize="50sp" />
     </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/btn_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|bottom"
+        android:clipChildren="false"
+        android:orientation="horizontal"
+        android:visibility="visible" >
+
+        <com.gloomy.ShreddingRobot.Widget.MeinTextView
+            android:id="@+id/repeat_btn"
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/result_btn_height"
+            android:background="@color/repeat_bg"
+            android:gravity="center"
+            android:textSize="@dimen/result_btn_text_size"
+            meinTV:fontPath="fonts/fontawesome.ttf" />
+
+        <com.gloomy.ShreddingRobot.Widget.MeinTextView
+            android:id="@+id/continue_btn"
+            android:layout_weight="3"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/result_btn_height"
+            android:background="@color/continue_bg"
+            android:gravity="center"
+            android:textSize="@dimen/result_btn_text_size"
+            meinTV:fontPath="fonts/fontawesome.ttf" />
+    </LinearLayout>
 </LinearLayout>
